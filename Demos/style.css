@@ -1,0 +1,58 @@
+﻿body
+{
+	background: #fff url('../wp-content/themes/smooth/images/pattern.jpg') repeat;
+	background-color:#fff;
+	text-shadow: 0 1px 0 #fff;
+}
+
+#wrapper
+{
+	width:940px;
+	padding:0 10px;
+	margin:0 auto;
+	background: #e8e8e8 url(images/bg.png) no-repeat top center;
+	padding-bottom:50px;
+	
+}
+
+#canvas
+{
+	margin:0 auto;
+	width:600px;
+	height:auto;
+	padding-bottom:150px;
+	border:1px solid #999;
+	padding-left:10px;
+
+}
+
+#myDiv
+{
+	background-image:none;
+	width:100px;
+	height:100px;
+	
+}
+
+.Mbox
+{
+		float:left;
+		width:20%;
+}
+
+#main
+{
+	text-align:center;
+	font-size:76%;
+	cursor:pointer;
+	border:0px;	
+}
+
+#header {
+	padding: 30px 0 25px 0;
+}
+	#header .left {
+		margin-left: 160px;
+	}
+
+

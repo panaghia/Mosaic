@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it-it" dir="ltr" > 
+
+<head> 
+<meta http-equiv="content-type" content="text/html; charset=utf-8" /> 
+
+<title>[DEMO] Mosaic Class from www.panaghia.it</title> 
+<link rel="stylesheet" type="text/css" href="style.css" media="screen" /> 
+<script type="text/javascript" src="lib/mootools.js"></script> 
+<script type="text/javascript" src="lib/mosaic.js"></script> 
+<script type="text/javascript"> 
+var mosaic;
+window.addEvent('domready', function(){
+	mosaic = new Mosaic(
+	{
+	            base: $('myDiv'),
+	            image: "megan.png",
+	            width: 483,
+	            height: 356,
+	            startColor: '#930',
+	            endColor: '#000',
+	            startAlpha:.7,
+	            endAlpha: .1,
+	            hacked: true
+	            
+	});
+ 
+});
+</script> 
+<style type="text/css">
+.style1 {
+	font-family: "Agency FB";
+}
+</style>
+</head> 
+<body> 
+<div id="wrapper">
+
+<div id="header">
+			<div class="left">
+				<h1><a href="http://panaghia.it"><img src="/wp-content/themes/smooth/images/panaghia_s.png" alt="panaghia logo"/></a></h1>
+				
+							
+			</div>
+		</div>
+
+
+<div id="canvas" style="height: 400px">
+ <h3 class="style1">Mosaic Example from www.panaghia.it</h3>
+ 
+<div id="myDiv"></div>
+<br/>
+
+<input type="button" onclick="javascript:mosaic.uncover()" value="uncover"/>
+<input type="button" onclick="javascript:mosaic.cover()" value="cover"/>
+
+
+	</div>
+	</div>
+ 
+</body> 
+</html>
