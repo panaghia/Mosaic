@@ -1,56 +1,23 @@
 /*
 ---
-description:
-Mosaic Class
-variables:
-	base - is the div that contains the image to cover
-	image - is the path to the image
-	width - div width (may concide with image width)
-	height - div height ("" "" "")
-	startColor - start color of patterns
-	endColor - end color of patterns
-	startAlpha - start opacity of patterns
-	endAlpha - start opacity of patterns
-
-methods:
-	void start() - initializes and injects patterns inside 'base'
-	void setStartColor(color) - set the initial color of Mbox(s)
-	void setEndColor(color) - set the final color of Mbox(s)
-	void uncover() - Apply a sequential effect on each Mbox(s) from initials to finals parameters
-	void cover() - Apply a sequential effect on each Mbox(s) from finals to initials parameters
-	void disableTouch() - Disable pattern effect on mouse enter (may be useful after uncover function)
+description: Mosaic - MooTools based mosaic effect
 
 license: MIT-style
 
 authors:
-- Sergio Panagia
+- Sergio Panagia (http://panaghia.it)
 
 requires:
-- requires: 
-  core/1.2.4: '*'
-  Fx: '*'
+- Element.Event
+- Fx.Morph
+- Element.Style
+- Element.Dimenstions
+- String
+- Array
 
-provides: [Element, Elements, $, $$]
+provides: [Mosaic]
 
-
----------------------------------
-CSS TODO: define Mbox class inside your stylesheet
-
-.Mbox
-{	
-	position:relative;
-	width:20%;
-	height:20%;
-	float:left;
-	background-color:#111;
-	color:#999;
-	min-height:5%;
-	min-width:5%;
-	border:0px;
-	padding:0px;
-}
-	
-
+...
 */
 
 var Mosaic = new Class({
