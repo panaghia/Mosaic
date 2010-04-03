@@ -1,7 +1,7 @@
 Mosaic
 ===========
 
-Mosaic Plugin for MooTools let you create visual effects on your image dividing it into little boxes.
+Mosaic Plugin creates a snake-like effect morphing sub-patterns of an image.
 
 
 How to use
