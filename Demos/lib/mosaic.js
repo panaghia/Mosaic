@@ -1,64 +1,23 @@
 /*
-Author: Sergio Panagia
-Copyright (c) 2010 Sergio Panagia.
-Site: http://www.panaghia.it
-Mail: contact@panaghia.it
+---
+description: Mosaic - MooTools based mosaic effect
 
+license: MIT-style
 
+authors:
+- Sergio Panagia (http://panaghia.it)
 
-Mosaic Class for MooTools 1.2
-Version: 0.1 - Tested on: FireFox3+, Chrome4+, IE6+
+requires:
+- Element.Event
+- Fx.Morph
+- Element.Style
+- Element.Dimenstions
+- String
+- Array
 
-Description:
-Mosaic let you apply a mosaic-pattern effect on a certain image
+provides: [Mosaic]
 
-Licence:
-MIT Style License.
-
-Date:
-31/03/2010
-
----------------------------------
-
-Documentation:
-
-Mosaic() Constructor
-variables:
-	base - is the div that contains the image to cover
-	image - is the path to the image
-	width - div width (may concide with image width)
-	height - div height ("" "" "")
-	startColor - start color of patterns
-	endColor - end color of patterns
-	startAlpha - start opacity of patterns
-	endAlpha - start opacity of patterns
-
-methods:
-	void start() - initializes and injects patterns inside 'base'
-	void setStartColor(color) - set the initial color of Mbox(s)
-	void setEndColor(color) - set the final color of Mbox(s)
-	void uncover() - Apply a sequential effect on each Mbox(s) from initials to finals parameters
-	void cover() - Apply a sequential effect on each Mbox(s) from finals to initials parameters
-	void disableTouch() - Disable pattern effect on mouse enter (may be useful after uncover function)
-
----------------------------------
-CSS TODO: define Mbox class inside your stylesheet
-
-.Mbox
-{	
-	position:relative;
-	width:20%;
-	height:20%;
-	float:left;
-	background-color:#111;
-	color:#999;
-	min-height:5%;
-	min-width:5%;
-	border:0px;
-	padding:0px;
-}
-	
-
+...
 */
 
 var Mosaic = new Class({
@@ -73,27 +32,30 @@ var Mosaic = new Class({
         startAlpha: .7,
         endAlpha:.1,
         covered: true,
+        transix: Fx.Transitions.Expo.easeOut,
+        dur: 800,
         hacked: true
         },
         initialize: function(options){
                 this.setOptions(options);
-                this.start();          
+                //this.start();          
         },
-        start: function()
+        render: function()
         {
-        	var img = this.options.image;
+         	var img = this.options.image;
         	var base = this.options.base;
         	var width = this.options.width;
         	var height = this.options.height;
         	var baseDiv = $(base);
+        	var transix = this.options.transix;
+        	var dur = this.options.dur;
+        	
         	if(this.options.hacked && !Browser.Engine.gecko)
         	{
         		
 	       		var newW = (width*20/100);
 	      		var dif = newW - Math.round(newW);
-	       	  		dif*=5;
-	         	
-       		
+	       	  	dif*=5;
           	     baseDiv.setStyle('width',width-dif);//+'px');
             }
           	baseDiv.setStyle('height',height);//+'px');
@@ -106,46 +68,42 @@ var Mosaic = new Class({
            	}
         	
         	var boxs = $$('.Mbox');
-			//var newW = (width*20/100);
 			var newH = (height*20/100);
 			boxs.setStyle('width', '20%');
 			boxs.setStyle('height', newH);
-								
-			        	
-        	
-			
-		var start = this.options.startAlpha;
-		var end = this.options.endAlpha;
-		var startColor = this.options.startColor;
-		var endColor = this.options.endColor;	
-		boxs.setStyle('background-color', startColor);
-		boxs.set('opacity',start);
-		boxs.set('morph', {duration: 800, transition: Fx.Transitions.Expo.easeOut});
-		boxs.each(function(box, i)
-		{
-			box.addEvent("mouseenter", function(event)
+							
+			var start = this.options.startAlpha;
+			var end = this.options.endAlpha;
+			var startColor = this.options.startColor;
+			var endColor = this.options.endColor;	
+			boxs.setStyle('background-color', startColor);
+			boxs.set('opacity',start);
+			boxs.set('morph', {duration: dur, transition: transix});
+			boxs.each(function(box, i)
 			{
+				box.addEvent("mouseenter", function(event)
+				{
+					
 				
-			
-				box.morph({
-					
-					'opacity':end,
-					'background-color':endColor
-											
+					box.morph({
+						
+						'opacity':end,
+						'background-color':endColor
+												
+					});
+				});
+				box.addEvent("mouseleave", function(event)
+				{
+					(function(){
+					box.morph({
+						
+						'opacity':start,
+						'background-color':startColor
+																
+					});
+					}).delay(200);
 				});
 			});
-			box.addEvent("mouseleave", function(event)
-			{
-				(function(){
-				box.morph({
-					
-					'opacity':start,
-					'background-color':startColor
-															
-				});
-				}).delay(200);
-			});
-		});
         	
         },
         setStartColor: function(col)
@@ -161,60 +119,76 @@ var Mosaic = new Class({
         {
         	if(this.options.covered)
         	{
-			var start = this.options.startAlpha;
-			var end = this.options.endAlpha;
-			var startColor = this.options.startColor;
-			var endColor = this.options.endColor;	
-			var boxs = $$('.Mbox');
-			var wait = 100;
-			boxs.each(function (box,i)
-			{
-				(function(){
-				box.morph({
-				'background-color':endColor,
-				'opacity':end
+				var start = this.options.startAlpha;
+				var end = this.options.endAlpha;
+				var startColor = this.options.startColor;
+				var endColor = this.options.endColor;	
+				var dur = this.options.dur;
+				var transix = this.options.transix;
+
+				var boxs = $$('.Mbox');
+				boxs.set('morph', {duration: dur, transition: transix});
+				var wait = 100;
+				boxs.each(function (box,i)
+				{
+					(function(){
+					box.morph({
+					'background-color':endColor,
+					'opacity':end
+					});
+					}).delay(wait);
+					wait+=100;
+				
 				});
-				}).delay(wait);
-				wait+=100;
-			
-			});
-			this.options.covered = false;
-		}
+				this.options.covered = false;
+			}
 		
         },
         cover: function()
         {
         	if(!this.options.covered)
         	{
-			var start = this.options.startAlpha;
-			var end = this.options.endAlpha;
-			var startColor = this.options.startColor;
-			var endColor = this.options.endColor;	
-			var boxs = $$('.Mbox');
-			var wait = 100;
-			boxs.each(function (box,i)
-			{
-				(function(){
-				box.morph({
-				'background-color':startColor,
-				'opacity':start
+				var start = this.options.startAlpha;
+				var end = this.options.endAlpha;
+				var startColor = this.options.startColor;
+				var endColor = this.options.endColor;	
+				var dur = this.options.dur;
+				var transix = this.options.transix;
+				var boxs = $$('.Mbox');
+				boxs.set('morph', {duration: dur, transition: transix});
+				var wait = 100;
+				boxs.each(function (box,i)
+				{
+					(function(){
+					box.morph({
+					'background-color':startColor,
+					'opacity':start
+					});
+					}).delay(wait);
+					wait+=100;
+				
 				});
-				}).delay(wait);
-				wait+=100;
-			
-			});
-			this.options.covered = true;
-		}
+				this.options.covered = true;
+			}
 		
         },
         disableTouch: function()
         {
         	var boxs = $$('.Mbox');
-		boxs.each(function (box,i)
-		{
-			box.removeEvents("mouseenter");
-			box.removeEvents("mouseleave");
-		});
+			boxs.each(function (box,i)
+			{
+				box.removeEvents("mouseenter");
+				box.removeEvents("mouseleave");
+			});
+        },
+        setTransition: function(transix)
+        {
+        	this.options.transix = transix;
+        
+        },
+        setDuration: function(time)
+        {
+        	this.options.dur = time;
         }
       
 });

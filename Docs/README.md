@@ -22,9 +22,14 @@ Example usage:
 	            endColor: '#000',
 	            startAlpha:.7,
 	            endAlpha: .1,
-	            hacked:true //hack it
-
+	            hacked: true
+	            
 	});
+	
+	mosaic.setDuration(400);
+	mosaic.setTransition(Fx.Transitions.Sine.easeOut);
+	mosaic.render();
+
 
 Screenshots
 -----------
